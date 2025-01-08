@@ -12,7 +12,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMenuBar()
-        // requestAccessibilityPermissions()
+        requestAccessibilityPermissions()
     }
     
     func setupMenuBar() {

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Info.plist
+   mac-tiles
+
+   Created by Justin on 1/8/25.
+   Copyright (c) 2025 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>$(DEVELOPMENT_LANGUAGE)</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIconFile</key>
+    <string></string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+    <key>NSMainStoryboardFile</key>
+    <string>Main</string>
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+    <!-- Required permissions for window management -->
+    <key>NSAccessibilityUsageDescription</key>
+    <string>This app needs accessibility permissions to manage and arrange windows on your screen.</string>
+    <key>Privacy - Accessibility Usage Description</key>
+    <string>This app needs accessibility permissions to manage and arrange windows on your screen.</string>
+    <!-- Required for window capture -->
+    <key>NSScreenCaptureUsageDescription</key>
+    <string>This app needs screen capture permissions to detect and manage windows.</string>
+    <!-- Additional security settings -->
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.utilities</string>
+    <key>LSUIElement</key>
+    <true/>
+</dict>
+</plist>
