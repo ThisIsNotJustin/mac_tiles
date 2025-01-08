@@ -18,6 +18,7 @@ class WindowManager: ObservableObject {
     
     struct WindowInfo: Identifiable {
         let id: CGWindowID
+        let pid: pid_t
         let name: String
         let frame: CGRect
         let isActive: Bool
@@ -29,6 +30,7 @@ class WindowManager: ObservableObject {
         
         activeWindows = windowList.compactMap { window -> WindowInfo? in
             guard let windowID = window[kCGWindowNumber as String] as? CGWindowID,
+                  let pid = window[kCGWindowOwnerPID as String] as? pid_t,
                   let name = window[kCGWindowName as String] as? String,
                   let bounds = window[kCGWindowBounds as String] as? [String: Any],
                   let isActive = window[kCGWindowIsOnscreen as String] as? Bool
@@ -43,7 +45,7 @@ class WindowManager: ObservableObject {
                 height: bounds["Height"] as? CGFloat ?? 0
             )
             
-            return WindowInfo(id: windowID, name: name, frame: frame, isActive: isActive)
+            return WindowInfo(id: windowID, pid: pid, name: name, frame: frame, isActive: isActive)
         }
     }
     
@@ -71,12 +73,23 @@ class WindowManager: ObservableObject {
                 height: height
             )
             
-            move(id: window.id, to_frame: newFrame)
+            move(pid: window.pid, to_frame: newFrame)
         }
                 
     }
     
-    func move(id: CGWindowID, to_frame: CGRect) {
-        print("Moving window \(id) to \(to_frame).")
+    func move(pid: pid_t, to_frame: CGRect) {
+        let app = AXUIElementCreateApplication(pid)
+        var windows: CFTypeRef?
+        
+        AXUIElementCopyAttributeValue(app, kAXWindowsAttribute as CFString, &windows)
+        if let windowsArray = windows as? [AXUIElement], let firstWindow = windowsArray.first {
+            var origin = to_frame.origin
+            var size = to_frame.size
+            AXUIElementSetAttributeValue(firstWindow, kAXPositionAttribute as CFString,
+                                         AXValueCreate(.cgPoint, &origin)!)
+            AXUIElementSetAttributeValue(firstWindow, kAXSizeAttribute as CFString,
+                                         AXValueCreate(.cgSize, &size)!)
+        }
     }
 }
